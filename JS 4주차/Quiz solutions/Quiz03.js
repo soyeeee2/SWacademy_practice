@@ -1,3 +1,4 @@
+// todo : members undefined 이유
 var idiots = {
     name: 'idiots',
     genre: 'punk',
