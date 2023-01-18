@@ -16,7 +16,7 @@ $main.appendChild($button3)
 
 document.querySelectorAll('button').forEach( $button => {
         $button.addEventListener('click', (e) => {
-                const {target} = e
+                const {target} = e //?
                 if(target.style.textDecoration === 'line-through'){
                         target.style.textDecoration = 'none'
                     } else {
@@ -24,12 +24,11 @@ document.querySelectorAll('button').forEach( $button => {
                         }
                     })
                 })
-   
                 
 
 // 2 선언형, 추상화
 function TimerBtn({$target, text, timer = 3000}) {
-    const button = new ToggleBtn({$target, text, onClick: () => { //변수 왜 또 가져옴? 
+    const button = new ToggleBtn({$target, text, onClick: () => { //?변수 왜 또 가져옴? 
             setTimeout(() => {
                 button.setState({
                     ...button.state,
@@ -55,7 +54,7 @@ function ToggleBtn({$target, text, onClick}) {
         this.render()
     }
 
-    this.render = () => {
+    this.render = () => { //? 함수여부 const안쓰는지지
         $button.textContent = text
 
         $button.style.textDecoration = 
@@ -68,7 +67,7 @@ function ToggleBtn({$target, text, onClick}) {
             toggled: !this.state.toggled
         })
 
-        if(onClick) {
+        if(onClick) { //? real Onclick?
             onClick(this.state.clickCount)
         }
     })
