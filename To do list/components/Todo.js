@@ -1,4 +1,4 @@
-export default function Todo({target, initialState, onClick}){
+export default function Todo({$target, initialState, onClick}){
     const $element = document.createElement('div');
     $target.appendChild($element);
 
@@ -13,8 +13,10 @@ export default function Todo({target, initialState, onClick}){
         $element.innerHTML = `
             <h1>Simple TodoList</h1>
             <ul>
-                ${this.state.map(todo => `<li>${todo}</li>`).join('')}
+                ${this.state.map(({text}) => `<li>${todo}</li>`).join('')}
             </ul>
         `
     }
+
+    this.render();
 }
