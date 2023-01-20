@@ -1,34 +1,38 @@
 // 명령형
-const $button1 = document.createElement('button');
-$button1.textContent = 'button01'
 
-const $button2 = document.createElement('button');
-$button2.textContent = 'button02'
+// const $button1 = document.createElement('button');
+// $button1.textContent = 'button01'
 
-const $button3 = document.createElement('button');
-$button3.textContent = 'button03'
+// const $button2 = document.createElement('button');
+// $button2.textContent = 'button02'
 
-const $main = document.querySelector('#app')
+// const $button3 = document.createElement('button');
+// $button3.textContent = 'button03'
 
-$main.appendChild($button1)
-$main.appendChild($button2)
-$main.appendChild($button3)
+// const $main = document.querySelector('#app')
 
-document.querySelectorAll('button').forEach( $button => {
-        $button.addEventListener('click', (e) => {
-                const {target} = e //?
-                if(target.style.textDecoration === 'line-through'){
-                        target.style.textDecoration = 'none'
-                    } else {
-                            target.style.textDecoration = 'line-through'
-                        }
-                    })
-                })
-                
+// $main.appendChild($button1)
+// $main.appendChild($button2)
+// $main.appendChild($button3)
+
+// document.querySelectorAll('button').forEach( $button => {
+//         $button.addEventListener('click', (e) => {
+//                 const {target} = e
+//                 if(target.style.textDecoration === 'line-through'){
+//                         target.style.textDecoration = 'none'
+//                     } else {
+//                             target.style.textDecoration = 'line-through'
+//                         }
+//                     })
+//                 })
+   
+
 
 // 2 선언형, 추상화
 function TimerBtn({$target, text, timer = 3000}) {
-    const button = new ToggleBtn({$target, text, onClick: () => { //?변수 왜 또 가져옴? 
+
+    const button = new ToggleBtn({$target, text, onClick: () => {
+
             setTimeout(() => {
                 button.setState({
                     ...button.state,
@@ -42,8 +46,7 @@ function TimerBtn({$target, text, timer = 3000}) {
 function ToggleBtn({$target, text, onClick}) {
     const $button = document.createElement("button")
     $target.appendChild($button)
-    let clickCount = 0;
-
+  
     this.state = {
         clickCount: 0,
         toggled: false
@@ -58,7 +61,7 @@ function ToggleBtn({$target, text, onClick}) {
         $button.textContent = text
 
         $button.style.textDecoration = 
-            this.state.toggled ? 'none' : 'line-through'
+            this.state.toggled ? 'line-through' : 'none'
     }
 
     $button.addEventListener('click', () => {
@@ -78,35 +81,45 @@ function ToggleBtn({$target, text, onClick}) {
 
 const $app = document.querySelector('#app')
 
-function BtnGroup({$app, buttons}){
+function BtnGroup({
+    $target, 
+    buttons
+}){
     const $group = document.createElement('div')
     let isInit = false
+
     this.render = () => {
       if(!isInit){
-        buttons.forEach((type, ...props) => {
-            if(button.typ)
+        buttons.forEach(({type, ...props}) => {
+            if(type === 'toggle'){
+                new ToggleBtn({$target: $group, ...props})
+            } else if(type === 'timer'){
+                new TimerBtn({$target: $group, ...props})
+            }
         })
+        $target.appendChild($group);
+        isInit = true
       }  
     }
+
+    this.render()
 }
 
-new ToggleBtn({
+new BtnGroup({
     $target: $app,
-    text: 'Button🔥',
-    onClick: (clickCount) => {
-        if(clickCount % 3 === 0) {
-            alert('3번째 클릭')
+    buttons: [
+        {
+            type: 'toggle',
+            text: '토글 버튼',
+        },
+        {
+            type: 'toggle',
+            text: '토글 버튼',
+        },
+        {
+            type: 'timer',
+            text: '타이머 버튼',
+            timer: 2000
         }
-    }
-}) 
-new ToggleBtn({
-    $target: $app,
-    text: 'Button✨',
-}) 
-
-new TimerBtn({
-    $target: $app,
-    text: 'Btn2',
-    timer: 1000 * 10
+    ]
 })
-
