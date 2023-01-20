@@ -1,4 +1,5 @@
 // 명령형
+
 // const $button1 = document.createElement('button');
 // $button1.textContent = 'button01'
 
@@ -25,11 +26,13 @@
 //                     })
 //                 })
    
-                
+
 
 // 2 선언형, 추상화
 function TimerBtn({$target, text, timer = 3000}) {
+
     const button = new ToggleBtn({$target, text, onClick: () => {
+
             setTimeout(() => {
                 button.setState({
                     ...button.state,
@@ -54,7 +57,7 @@ function ToggleBtn({$target, text, onClick}) {
         this.render()
     }
 
-    this.render = () => {
+    this.render = () => { //? 함수여부 const안쓰는지지
         $button.textContent = text
 
         $button.style.textDecoration = 
@@ -67,7 +70,7 @@ function ToggleBtn({$target, text, onClick}) {
             toggled: !this.state.toggled
         })
 
-        if(onClick) {
+        if(onClick) { //? real Onclick?
             onClick(this.state.clickCount)
         }
     })
