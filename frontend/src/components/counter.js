@@ -20,7 +20,7 @@ function Counter({ onIncrease, onDecrease }) {
             <h1>{count}</h1>    
             <button onClick={handleIncrease}>+</button>
             <button onClick={handleDecrease}>-</button>
-            <button onClick={reset}>Reset</button>
+            {/* <button onClick={reset}>Reset</button> */}
         </div>
     )
 }
